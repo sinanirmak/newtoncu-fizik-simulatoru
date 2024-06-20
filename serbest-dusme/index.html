@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .mass {
+                border-radius: 100%;
+                background-color: red;
+                width: 100px;
+                height: 100px;
+                position: relative;
+                left: 100px;
+            }
+
+            .screen {
+                position: static;
+                height: 800px;
+                background-color: skyblue;
+            }
+
+            .dash {
+                position: fixed;
+                top: 50%;
+                right: 0;
+                width: 350px;
+                opacity: 0.7;
+                background-color: darkblue;
+                color: white;
+                font-size: xx-large;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="params">
+            <h2>Parametreler</h2>
+            <form>
+                Yerçekimi İvmesi: <input id="gravity" type="number" value="10"> m<sup>2</sup>/s<br>
+                Bırakma Yüksekliği: <input id="height" type="number" value="80"> m<br>
+                Durdurulacak Yükseklik<small>(Opsiyonel)</small>: <input id="heightStop" type="number" value="0"><br><small>Durdurmamak istiyorsanız lütfen 0 girin; boş bırakmayın.</small>
+                <button type="button" onclick="init()">Kaydet</button>
+                <hr>
+                <small>Simülasyon, hiçbir sürtünmeyi hesaba katmamaktadır.</small>
+            </form>
+            <details>
+                <summary>Formülleri Göster</summary>
+                <ul>
+                    <li>h = g * t<sup>2</sup> / 2</li>
+                    <li>v<sub>Çarpma</sub> = g * t</li>
+                    <li>X<sub>Katedilen</sub> = g * t<sup>2</sup> / 2</li>
+                </ul>
+            </details>
+
+            <button onclick="birakma()">Bırak</button>
+        </div>
+        
+        <div style="height: 150px"></div>
+        <div class="screen">
+            <div class="mass"></div>
+        </div>
+        <small>Görseller orantısız olabilir, uzunlukları ölçerek kullanmayınız. Tarayıcı üzerinden büyütüp küçülterek bütün alanı ekrana sığacak şekilde ayarlayabilirsiniz.</small>
+
+        <section class="dash">
+            <span>Anlık Hız (V): <span id="velocity">0</span>m/s</span>
+            <br><br>
+            <span>Yerden Yükseklik: <span id="remainingHeight">80</span>m</span><br><small style="font-size: x-small;">Virgülden sonraki ilk iki basamaktan sonrası görüntülenmemektedir.</small>
+            <br><br>
+            <button id="durdur" disabled onclick="durdurdevam()">Durdur/Devam Ettir</button><button onclick="birakma()">Serbest Bırak (Sıfırla)</button>
+        </section>
+
+        <script src="serbestdusmemotoru.js"></script>
+    </body>
+</html>
