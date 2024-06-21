@@ -19,7 +19,7 @@
 
             .dash {
                 position: fixed;
-                top: 50%;
+                top: 15%;
                 right: 0;
                 width: 350px;
                 opacity: 0.7;
@@ -27,18 +27,32 @@
                 color: white;
                 font-size: xx-large;
             }
+
+            .params {
+                font-family: 'Courier New', Courier, monospace;
+                font-size: larger;
+                
+            }
+
+            button {
+                padding: 2%;
+                font-family: 'Courier New', Courier, monospace;
+                font-size: large;
+            }
         </style>
     </head>
     <body>
+        <h1>SERBEST DÜŞME SİMÜLATÖRÜ</h1>
         <div class="params">
             <h2>Parametreler</h2>
             <form>
-                Yerçekimi İvmesi: <input id="gravity" type="number" value="10"> m<sup>2</sup>/s<br>
+                Yerçekimi İvmesi: <input id="gravity" type="number" value="10"> m/s<sup>2</sup><br>
                 Bırakma Yüksekliği: <input id="height" type="number" value="80"> m<br>
-                Durdurulacak Yükseklik<small>(Opsiyonel)</small>: <input id="heightStop" type="number" value="0"><br><small>Durdurmamak istiyorsanız lütfen 0 girin; boş bırakmayın.</small>
-                <button type="button" onclick="init()">Kaydet</button>
+                Durdurulacak Süre<small>(Opsiyonel)</small>: <input id="timeStop" type="number" value="0"><br><small>Durdurmamak istiyorsanız lütfen 0 girin; boş bırakmayın.</small><br>
+                Simülasyon Hızı: <input type="number" id="simSpeed" value="0"> (-2: Çok Yavaş, -1: Yavaş, 0: Normal, 1: Hızlı)
+                <br><button type="button" onclick="init()">Kaydet</button>
                 <hr>
-                <small>Simülasyon, hiçbir sürtünmeyi hesaba katmamaktadır.</small>
+                <small>Simülasyon, hiçbir sürtünmeyi hesaba katmamaktadır. </small>
             </form>
             <details>
                 <summary>Formülleri Göster</summary>
@@ -56,16 +70,17 @@
         <div class="screen">
             <div class="mass"></div>
         </div>
-        <small>Görseller orantısız olabilir, uzunlukları ölçerek kullanmayınız. Tarayıcı üzerinden büyütüp küçülterek bütün alanı ekrana sığacak şekilde ayarlayabilirsiniz.</small>
+        <small>Görseller orantısız <u>olabilir</u>, uzunlukları ölçerek kullanmayınız. Tarayıcı üzerinden büyütüp küçülterek bütün alanı ekrana sığacak şekilde ayarlayabilirsiniz.</small><br><small>Yerçekimi ivmesi değiştirildiğinde çarpma anında 0m'den 0.24m'ye kadar bir hata payı vardır, simülasyonda bu pay ihmal edilmiştir.</small>
 
         <section class="dash">
-            <span>Anlık Hız (V): <span id="velocity">0</span>m/s</span>
+            <span>Anlık Hız (V): <span id="velocity">0.00</span>m/s</span>
             <br><br>
             <span>Yerden Yükseklik: <span id="remainingHeight">80</span>m</span><br><small style="font-size: x-small;">Virgülden sonraki ilk iki basamaktan sonrası görüntülenmemektedir.</small>
             <br><br>
-            <button id="durdur" disabled onclick="durdurdevam()">Durdur/Devam Ettir</button><button onclick="birakma()">Serbest Bırak (Sıfırla)</button>
+            <span>Geçen Süre: <span id="timeElapsed">0.00</span></span>
+            <br><br>
+            <button id="durdur" disabled onclick="durdurdevam()">Durdur/Devam Ettir</button><button disabled id="yenidenFirlat" onclick="yenidenbirakma()">Yeniden Bırak</button>
         </section>
-
         <script src="serbestdusmemotoru.js"></script>
     </body>
 </html>
